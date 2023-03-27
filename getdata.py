@@ -6,25 +6,23 @@ import json                             # for json format
 import io                               # for writing to file
 
 APIKEY = os.getenv("API_KEY")
-TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
+TOPSYMBOLS = ["AAPL", "MSFT"] #, "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
 
 # ranges for data collection
 STARTYEAR = 2017
 ENDYEAR = 2022
+DATACOUNT = 40
 
 # generate a random 30-day interval
-def random30Days(startyear, endyear):
+def randomDay(startyear, endyear):
     
     # chooses random year and month
     year = random.randint(startyear, endyear)
     month = random.randint(1, 12)
     day = random.randint(1, 28)     # accounts for months like Feb with only 28 days
 
-    # gets the date
-    start = date(year, month, day)
-
-    # returns date and date of 30 days in the future
-    return str(start), str(start + timedelta(days=30)) 
+    # returns date
+    return date(year, month, day)
 
 
 # class for invalid API Key exception
@@ -53,13 +51,24 @@ for symbol in TOPSYMBOLS:
     }
 
     # determines date
-    start, end = random30Days(startyear=STARTYEAR, endyear=ENDYEAR)
+    day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
 
     # gets data
     fullStockData = requests.get(url, params=params).json()["Time Series (Daily)"]
 
-    # slices data according to dates
-    slicedData = {tradingDay: info for tradingDay, info in fullStockData.items() if start <= tradingDay <= end}
+    # initializes dict for sliced data
+    slicedData = {}
+
+    # gets 20 trading days before the date
+    count = 0
+    while count < DATACOUNT:
+        # checks if day is available
+        try:
+            slicedData[str(day)] = fullStockData[str(day)]
+            day -= timedelta(days = 1)
+            count += 1
+        except:
+            day -= timedelta(days = 1)
 
     # adds to main data
     data[symbol] = slicedData
