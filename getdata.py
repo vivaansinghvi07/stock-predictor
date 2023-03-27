@@ -4,9 +4,10 @@ from datetime import date, timedelta    # for setting dates
 import random                           # for random generation
 import json                             # for json format
 import io                               # for writing to file
+import time                             # for rate limits
 
 APIKEY = os.getenv("API_KEY")
-TOPSYMBOLS = ["AAPL", "MSFT"] #, "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
+TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
 
 # ranges for data collection
 STARTYEAR = 2017
@@ -38,7 +39,10 @@ if not APIKEY:
 # defines data
 data = {}
 
-for symbol in TOPSYMBOLS:
+for symbolIndex in range(len(TOPSYMBOLS)):
+
+    # obtains symbol
+    symbol = TOPSYMBOLS[symbolIndex]
 
     # sets parameters for JSON request
     url = "https://www.alphavantage.co/query"
@@ -53,8 +57,21 @@ for symbol in TOPSYMBOLS:
     # determines date
     day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
 
+    # gets json
+    fullJsonData = requests.get(url, params=params).json()
+
     # gets data
-    fullStockData = requests.get(url, params=params).json()["Time Series (Daily)"]
+    try:
+        fullStockData = fullJsonData["Time Series (Daily)"]
+    except:
+
+        # wait for rate limit
+        print(f"There has been an error after {symbolIndex} calls. Sleeping for 2 minutes...")
+        time.sleep(120)
+
+        # decrement index to try that one again
+        symbolIndex -= 1
+        continue
 
     # initializes dict for sliced data
     slicedData = {}
