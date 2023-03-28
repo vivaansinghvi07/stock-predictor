@@ -55,7 +55,7 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         overallIncreaseData.append(calcPercentChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
 
         # determines if it was worth it
-        classifications.append('buy' if calcPercentChange(open=valuesTesting[0]["1. open"], close=valuesTraining[-1]["4. close"]) > 1 else 'sell')
+        classifications.append(1 if calcPercentChange(open=valuesTesting[0]["1. open"], close=valuesTraining[-1]["4. close"]) > 1 else 0)
 
 print("Training model...")
 
