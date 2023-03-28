@@ -8,13 +8,14 @@ import time                             # for rate limits
 
 APIKEY = os.getenv("API_KEY")
 TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
+DATAPERSYMBOL = 3       # how many different data per symbols
 
 # ranges for data collection
 STARTYEAR = 2017
 ENDYEAR = 2022
-DATACOUNT = 40
+DATACOUNT = 30
 
-# generate a random 30-day interval
+# generate a random date 
 def randomDay(startyear, endyear):
     
     # chooses random year and month
@@ -39,56 +40,61 @@ if not APIKEY:
 # defines data
 data = {}
 
-for symbolIndex in range(len(TOPSYMBOLS)):
+for symbol in TOPSYMBOLS:   # gets 2 per symbol
 
-    # obtains symbol
-    symbol = TOPSYMBOLS[symbolIndex]
+    # reset count and set the symbol to a new dictionary
+    countPerSymbol = 0
+    data[symbol] = {}
 
-    # sets parameters for JSON request
-    url = "https://www.alphavantage.co/query"
-    params = {
-        "function": "TIME_SERIES_DAILY_ADJUSTED",
-        "apikey": APIKEY,
-        "symbol": symbol,
-        "datatype": "json",
-        "outputsize": "full"
-    }
+    # get as many as the constant states
+    while countPerSymbol < DATAPERSYMBOL:
 
-    # determines date
-    day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
+        # sets parameters for JSON request
+        url = "https://www.alphavantage.co/query"
+        params = {
+            "function": "TIME_SERIES_DAILY_ADJUSTED",
+            "apikey": APIKEY,
+            "symbol": symbol,
+            "datatype": "json",
+            "outputsize": "full"
+        }
 
-    # gets json
-    fullJsonData = requests.get(url, params=params).json()
+        # determines date
+        day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
 
-    # gets data
-    try:
-        fullStockData = fullJsonData["Time Series (Daily)"]
-    except:
+        # gets json
+        fullJsonData = requests.get(url, params=params).json()
 
-        # wait for rate limit
-        print(f"There has been an error after {symbolIndex} calls. Sleeping for 2 minutes...")
-        time.sleep(120)
-
-        # decrement index to try that one again
-        symbolIndex -= 1
-        continue
-
-    # initializes dict for sliced data
-    slicedData = {}
-
-    # gets 20 trading days before the date
-    count = 0
-    while count < DATACOUNT:
-        # checks if day is available
+        # gets data
         try:
-            slicedData[str(day)] = fullStockData[str(day)]
-            day -= timedelta(days = 1)
-            count += 1
-        except:
-            day -= timedelta(days = 1)
+            # get the entire data
+            fullStockData = fullJsonData["Time Series (Daily)"]
 
-    # adds to main data
-    data[symbol] = slicedData
+            # increment the count
+            countPerSymbol += 1
+        except:
+
+            # wait for rate limit
+            print(f"Rate limited at stock {symbol}. Sleeping for 1 minute.")
+            time.sleep(60)
+            continue
+
+        # initializes dict for sliced data
+        slicedData = {}
+
+        # gets 20 trading days before the date
+        count = 0
+        while count < DATACOUNT:
+            # checks if day is available
+            try:
+                slicedData[str(day)] = fullStockData[str(day)]
+                day -= timedelta(days = 1)
+                count += 1
+            except:
+                day -= timedelta(days = 1)
+
+        # adds to main data
+        data[symbol][countPerSymbol] = slicedData
 
 # adds to data file
 with open("data.json", "w", encoding="utf-8") as f:
