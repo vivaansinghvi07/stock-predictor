@@ -1,11 +1,11 @@
-import pickle                   # for storing the model
-import json                     # for reading data
-import pandas as pd             # for creating dataframes
-from sklearn.svm import SVC     # model used to train
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-import numpy as np
+import pickle                                           # for storing the model
+import json                                             # for reading data
+import pandas as pd                                     # for creating dataframes
+import numpy as np                                      # for things like mean and std dev
+from sklearn.svm import SVC                             # model used to train
+from sklearn.model_selection import train_test_split    # to split data
+from sklearn.preprocessing import StandardScaler        # to scale data
+from sklearn.metrics import accuracy_score              # calculate accuracy
 
 # loads data
 with open("data.json", "r") as f:
@@ -76,7 +76,7 @@ trainX = scaler.fit_transform(trainX)
 testX = scaler.transform(testX)
 
 # creates model
-model = SVC()
+model = SVC(probability=True)
 model.fit(trainX, trainY)
 
 # tests accuracy
