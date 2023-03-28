@@ -17,6 +17,7 @@ print("Processing data...")
 # defines featuers to look at
 FEATURES = ["gainVariation", "volume", "avgDailyIncrease", "overallIncrease"]
 CLASSIFYSPLIT = 0.20        # what percent of the data to use for classification determination
+DIRECTORY = "models/"       # folder destination for model
 
 # defines overall arrays for data
 gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData = [], [], [], []
@@ -83,9 +84,9 @@ predictedY = model.predict(testX)
 print(f"The accuracy of the model is {round(accuracy_score(testY, predictedY), 4)}")
 
 # saves models
-with open("model.pkl", "wb") as f:
+with open(f"{DIRECTORY}model.pkl", "wb") as f:
     pickle.dump(model, f)
-with open("scaler.pkl", "wb") as f:
+with open(f"{DIRECTORY}scaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
 print("Models saved.")
