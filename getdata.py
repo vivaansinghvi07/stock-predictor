@@ -8,7 +8,7 @@ import time                             # for rate limits
 
 APIKEY = os.getenv("API_KEY")
 TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
-DATAPERSYMBOL = 3       # how many different data per symbols
+DATAPERSYMBOL = 10       # how many different data per symbols
 
 # ranges for data collection
 STARTYEAR = 2017
@@ -46,38 +46,43 @@ for symbol in TOPSYMBOLS:   # gets 2 per symbol
     countPerSymbol = 0
     data[symbol] = {}
 
-    # get as many as the constant states
-    while countPerSymbol < DATAPERSYMBOL:
+    # sets parameters for JSON request
+    url = "https://www.alphavantage.co/query"
+    params = {
+        "function": "TIME_SERIES_DAILY_ADJUSTED",
+        "apikey": APIKEY,
+        "symbol": symbol,
+        "datatype": "json",
+        "outputsize": "full"
+    }
 
-        # sets parameters for JSON request
-        url = "https://www.alphavantage.co/query"
-        params = {
-            "function": "TIME_SERIES_DAILY_ADJUSTED",
-            "apikey": APIKEY,
-            "symbol": symbol,
-            "datatype": "json",
-            "outputsize": "full"
-        }
-
-        # determines date
-        day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
-
-        # gets json
-        fullJsonData = requests.get(url, params=params).json()
-
-        # gets data
+    # go until proper data gotten
+    while True:
         try:
+
+            # gets json
+            fullJsonData = requests.get(url, params=params).json()
+
             # get the entire data
             fullStockData = fullJsonData["Time Series (Daily)"]
 
-            # increment the count
-            countPerSymbol += 1
+            # break if successful
+            print(f"success at {symbol}")
+            break
+
         except:
 
             # wait for rate limit
             print(f"Rate limited at stock {symbol}. Sleeping for 1 minute.")
             time.sleep(60)
             continue
+
+        
+    # get as many as the constant states
+    while countPerSymbol < DATAPERSYMBOL:
+
+        # determines date
+        day = randomDay(startyear=STARTYEAR, endyear=ENDYEAR)
 
         # initializes dict for sliced data
         slicedData = {}
@@ -95,6 +100,9 @@ for symbol in TOPSYMBOLS:   # gets 2 per symbol
 
         # adds to main data
         data[symbol][countPerSymbol] = slicedData
+
+        # increment count
+        countPerSymbol += 1
 
 # adds to data file
 with open("data.json", "w", encoding="utf-8") as f:
