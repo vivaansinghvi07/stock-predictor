@@ -8,12 +8,16 @@ import time                             # for rate limits
 
 APIKEY = os.getenv("API_KEY")
 TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
-DATAPERSYMBOL = 10       # how many different data per symbols
+DATAPERSYMBOL = 4       # how many different data per symbols
 
 # ranges for data collection
 STARTYEAR = 2017
 ENDYEAR = 2022
-DATACOUNT = 30
+DATACOUNT = 20
+
+# sets seed
+RANDOMSEED = 10
+random.seed(RANDOMSEED)
 
 # generate a random date 
 def randomDay(startyear, endyear):
