@@ -67,7 +67,7 @@ for symbol in TOPSYMBOLS:   # gets 2 per symbol
             fullStockData = fullJsonData["Time Series (Daily)"]
 
             # break if successful
-            print(f"success at {symbol}")
+            print(f"Success for {symbol}.")
             break
 
         except:
