@@ -38,7 +38,6 @@ class APIKeyException(Exception):
 
 # detects if API Key was None
 if not APIKEY:
-    print("Error obtaining API Key")
     raise APIKeyException("The environment variable \"API_KEY\" contains no key")
 
 # defines data
