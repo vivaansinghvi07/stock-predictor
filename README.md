@@ -126,7 +126,7 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
 This program uses data from the `data.json` file to analyze data. Currently, the features analyzed in the implemented `SVC` model from `sklearn` include the average daily change, overall change acorss the interval, variation in change, and volume traded. Numbers for each of these features are calculated for each interval in `data.json`. The above is done for the first part of the data (split using `CLASSIFYSPLIT`). Using the remaining data, the overall change in stock price is calculated; if there is a upwards change, then we buy the stock. Otherwise, we sell it. Then, the data is scaled, split into testing and training sets, and entered into the model. An accuracy test run outputted this value: 
 
 ```
-The accuracy of the model is 0.6562
+The accuracy of the model is 0.75
 ```
 
 ### use.ipynb
