@@ -16,7 +16,7 @@ with open(f"{DATAPATH}data.json", "r") as f:
 print("Processing data...")
 
 # defines overall arrays for data
-gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData = [], [], [], []
+gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData, nDayIncreaseData = [], [], [], [], []
 classifications = []
 
 # calculates the percent change of a stock
@@ -28,7 +28,7 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
     for number, numberData in symbolData.items():  # goes though each subset in the symbol
 
         # stores values
-        splitIndex = int(CLASSIFYSPLIT * len(numberData.values()))
+        splitIndex = int((1 - CLASSIFYSPLIT) * len(numberData.values()))
         values = list(numberData.values())[::-1]    # reversed because old days are last 
         valuesTraining = values[:splitIndex:]
         valuesTesting = values[splitIndex::]
@@ -46,6 +46,9 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         # gets variation in gains
         gainVariationData.append(np.std(gains))
         avgDailyIncreaseData.append(np.mean(gains))
+
+        # populate nDayIncreaseData
+        nDayIncreaseData.append(calcPercentChange(open=valuesTraining[-NDAYS]["1. open"], close=valuesTraining[-1]["4. close"]))
 
         # gets overall gain
         overallIncreaseData.append(calcPercentChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
