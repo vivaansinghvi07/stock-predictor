@@ -31,7 +31,7 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         splitIndex = int((1 - CLASSIFYSPLIT) * len(numberData.values()))
         values = list(numberData.values())[::-1]    # reversed because old days are last 
         valuesTraining = values[:splitIndex:]
-        valuesTesting = values[splitIndex::]
+        valuesClassifying = values[splitIndex::]
         
         # fills array with changes
         gains = []
@@ -54,7 +54,7 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         overallIncreaseData.append(calcPercentChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
 
         # determines if it was worth it
-        classifications.append(1 if calcPercentChange(open=valuesTesting[0]["1. open"], close=valuesTraining[-1]["4. close"]) > 1 else 0)
+        classifications.append(1 if calcPercentChange(open=valuesClassifying[0]["1. open"], close=valuesClassifying[-1]["4. close"]) > 1 else 0)
 
 print("Training model...")
 
