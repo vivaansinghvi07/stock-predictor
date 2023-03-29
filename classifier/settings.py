@@ -16,10 +16,13 @@ DATACOUNT = 20          # NUMBER OF DAYS IN DATA INTERVAL
 RANDOMSEED = 10
 
 # features for analysis (only changing these wont do anything, but they're here so you can see what is being looked at)
-FEATURES = ["gainVariation", "volume", "avgDailyIncrease", "overallIncrease"]
+FEATURES = ["gainVariation", "volume", "avgDailyIncrease", "overallIncrease", "nDayIncrease"]
 
 # what percent of the data to use for classification determination
-CLASSIFYSPLIT = 0.20        
+CLASSIFYSPLIT = 0.5        
+
+# how many days to use with the nDayIncresae
+NDAYS = 5
 
 # path to folder
 MODELPATH = "classifier/models/"        # folder destination for model and scaler
