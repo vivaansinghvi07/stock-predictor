@@ -20,7 +20,7 @@ gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData, nDayIn
 classifications = []
 
 # calculates the percent change of a stock
-def calcPercentChange(open, close):
+def calcChange(open, close):
     return (float(close)) / float(open)
 
 # analyses data
@@ -37,9 +37,9 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         gains = []
         volumes = []
         for dayData in valuesTraining:
-            gains.append(calcPercentChange(open=dayData["1. open"], close=dayData["4. close"]))
+            gains.append(calcChange(open=dayData["1. open"], close=dayData["4. close"]))
             volumes.append(int(dayData["6. volume"]))
-            
+
         # gets average volume
         volumeData.append(np.mean(volumes))
 
@@ -48,13 +48,13 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
         avgDailyIncreaseData.append(np.mean(gains))
 
         # populate nDayIncreaseData
-        nDayIncreaseData.append(calcPercentChange(open=valuesTraining[-NDAYS]["1. open"], close=valuesTraining[-1]["4. close"]))
+        nDayIncreaseData.append(calcChange(open=valuesTraining[-NDAYS]["1. open"], close=valuesTraining[-1]["4. close"]))
 
         # gets overall gain
-        overallIncreaseData.append(calcPercentChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
+        overallIncreaseData.append(calcChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
 
         # determines if it was worth it
-        classifications.append(1 if calcPercentChange(open=valuesClassifying[0]["1. open"], close=valuesClassifying[-1]["4. close"]) > 1 else 0)
+        classifications.append(1 if calcChange(open=valuesClassifying[0]["1. open"], close=valuesClassifying[-1]["4. close"]) > 1 else 0)
 
 print("Training model...")
 
