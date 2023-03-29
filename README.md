@@ -142,3 +142,7 @@ This model uses `prophet` to forecast the state of a stock.
 ### use.ipynb
 
 When you enter your stock, the program retrieves the most recent 100 trading days of date using the Alpha Vantage API. Then, it enters these into the regression model, which processes the data and determines what the closing price for the next `FUTUREFORECASTDAYS` days will be. When done, a graph is displayed, showing both the collected data (with dots) and the forecasted data (with a line).
+
+Here is an example of the graph generated (this one was geenrated using the NVDA stock).
+
+![Example Graph](live-regression/output.png)
