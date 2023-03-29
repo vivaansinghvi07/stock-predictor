@@ -126,3 +126,19 @@ Simply execute the first two cells to load all the required variables and models
 
 ## Limitations
 Given the volatility of the stock market, there is no telling what will happen. This model does not take into account real-life events which may affect stock price, and is limited in scope to determining short-term patterns, not long-term benefits (this can, however, be changed by tweaking the parameters).
+
+# Model 2 - Live Regression
+This model directly takes recent and makes forecasts based on that data. All files used for this model are in the `live-regression` folder.
+
+## Parameters
+Everything is in the `use.ipynb` file!
+- `APIKEY`: This is where you enter your API key. Keep it safe!
+- `FUTUREFORECASTDAYS`: This is how many days the model will predict. Generally, keep this under 50 to avoid over-extrapolation.
+
+## How It Works
+
+This model uses `prophet` to forecast the state of a stock.
+
+### use.ipynb
+
+When you enter your stock, the program retrieves the most recent 100 trading days of date using the Alpha Vantage API. Then, it enters these into the regression model, which processes the data and determines what the closing price for the next `FUTUREFORECASTDAYS` days will be. When done, a graph is displayed, showing both the collected data (with dots) and the forecasted data (with a line).
