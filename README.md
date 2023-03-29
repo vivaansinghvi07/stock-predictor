@@ -123,8 +123,8 @@ This program uses data from the `data.json` file to analyze data. Currently, the
 The accuracy of the model is 0.6562
 ```
 
-### use.py
-Simply execute the first two cells to load all the required variables and models; then, execute the second cell, enter a stock symbol, and analyze!
+### use.ipynb
+Simply execute the first two cells to load all the required variables and models; then, execute the third cell, enter a stock symbol, and analyze as many times as your API key allows you!
 
 ## Limitations
 Given the volatility of the stock market, there is no telling what will happen. This model does not take into account real-life events which may affect stock price, and is limited in scope to determining short-term patterns, not long-term benefits (this can, however, be changed by tweaking the parameters).
