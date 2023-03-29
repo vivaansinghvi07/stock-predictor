@@ -1,4 +1,4 @@
-# Stock Generator
+# Stock Predictor
 Uses machine learning models to predict if you should buy or sell a stock using end-of-day data using the [Alpha Vantage](https://www.alphavantage.co/) API.
 
 ## Usage
