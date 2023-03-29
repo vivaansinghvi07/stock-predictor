@@ -27,6 +27,14 @@ All changeable parameters are visible in `settings.py`. Here is a quick run-down
 - `RANDOMSEED`: This stores the random seed used for the sake of replicability. 
 - `CLASSIFYSPLIT`: Currently `0.20`, this represents the proportion of the interval which will be used to determine if buying a stock was 'worth it' (more on this later).
 - `MODELPATH`, `DATAPATH`, AND `IPYNBMODELPATH`: These represent paths to each file needed. If you run into file-not-found errors, tweak these until you reach the right files.
+- `NDAYS`: Stores the number of days right before breakpoint to analyze.
+
+## Features Included:
+- Overall Change: This is the close stock price represented as a percent of the open stock price.
+- Average Change: This is the average value for the close stock price represented of the open stock price for each day. Therefore, this represents daily change.
+- Average Variation: This is the standard deviation of the list of changes.
+- Volume: This is the volume traded.
+- N-Days Change: This is the overall change for the `NDAYS` before the break point.
 
 ## How It Works
 As aforementioned, the program first collects data using the API, then analyses short intervals of a couple dozens of trading days, then classifies a stock as one you should `buy` or `sell`.
