@@ -1,5 +1,5 @@
 # ALL SETTINGS GO HERE
-APIKEY = ""
+APIKEY = ""     # THE PROGRAM WILL NOT WORK WITHOUT THIS
 
 # these are the symbols the model is trained with 
 TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
@@ -22,6 +22,6 @@ FEATURES = ["gainVariation", "volume", "avgDailyIncrease", "overallIncrease"]
 CLASSIFYSPLIT = 0.20        
 
 # path to folder
-MODELPATH = "classifier/models/"       # folder destination for model
-DATAPATH = "classifier/"
-IPYNBMODELPATH = "models/"
+MODELPATH = "classifier/models/"        # folder destination for model and scaler
+DATAPATH = "classifier/"                # folder destination for json.data
+IPYNBMODELPATH = "models/"              # for ipynb - different pathing
