@@ -146,3 +146,7 @@ When you enter your stock, the program retrieves the most recent 100 trading day
 Here is an example of the graph generated (this one was geenrated using the NVDA stock).
 
 ![Example Graph](live-regression/output.png)
+
+## Limitations
+
+This model does not seem to take into account the rapid fluctuations of the stock market, which makes sense given how it forrecasts based off the most recent trend.
