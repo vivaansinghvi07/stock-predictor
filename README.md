@@ -24,10 +24,10 @@ All changeable parameters are visible in `settings.py`. Here is a quick run-down
 - `DATAPERSYMBOL`: A measure of how much data to collect, this determines how many different intervals to collect per stock symbol - currently set to `4`. 
 - `STARTYEAR` and `ENDYEAR`: These are the bounds for which data can be collected. Currently, it is set to `2017`-`2022` for recent but not too recent data.
 - `DATACOUNT`: Currently set to `20`, this determines how big your trading day-intervals are. Therefore, now, it obtains 20 consecutive trading days.
-- `RANDOMSEED`: This stores the random seed used for the sake of replicability. 
-- `CLASSIFYSPLIT`: Currently `0.20`, this represents the proportion of the interval which will be used to determine if buying a stock was 'worth it' (more on this later).
+- `RANDOMSEED`: This stores the random seed used for the sake of replicability. It is currently 10.
+- `CLASSIFYSPLIT`: Currently `0.50`, this represents the proportion of the interval which will be used to determine if buying a stock was 'worth it' (more on this later).
 - `MODELPATH`, `DATAPATH`, AND `IPYNBMODELPATH`: These represent paths to each file needed. If you run into file-not-found errors, tweak these until you reach the right files.
-- `NDAYS`: Stores the number of days right before breakpoint to analyze.
+- `NDAYS`: Stores the number of days right before breakpoint to analyze. Currently, this is set to 5.
 
 ## Features Included:
 - Overall Change: This is the close stock price represented as a percent of the open stock price.
