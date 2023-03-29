@@ -1,22 +1,10 @@
 import requests                         # for getting data
-import os                               # for getting env variables
 from datetime import date, timedelta    # for setting dates
 import random                           # for random generation
 import json                             # for json format
-import io                               # for writing to file
 import time                             # for rate limits
+from settings import *                  # import all settings
 
-APIKEY = os.getenv("API_KEY")
-TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
-DATAPERSYMBOL = 4       # how many different data per symbols
-
-# ranges for data collection
-STARTYEAR = 2017
-ENDYEAR = 2022
-DATACOUNT = 20
-
-# sets seed
-RANDOMSEED = 10
 random.seed(RANDOMSEED)
 
 # generate a random date 
@@ -108,5 +96,5 @@ for symbol in TOPSYMBOLS:   # gets 2 per symbol
         countPerSymbol += 1
 
 # adds to data file
-with open("data.json", "w", encoding="utf-8") as f:
+with open(f"{DATAPATH}data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=4, ensure_ascii=True)

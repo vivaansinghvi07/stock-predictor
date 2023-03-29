@@ -6,18 +6,14 @@ from sklearn.svm import SVC                             # model used to train
 from sklearn.model_selection import train_test_split    # to split data
 from sklearn.preprocessing import StandardScaler        # to scale data
 from sklearn.metrics import accuracy_score              # calculate accuracy
+from settings import *                                  # gets all the settings
 
 # loads data
-with open("data.json", "r") as f:
+with open(f"{DATAPATH}data.json", "r") as f:
     print("Getting data...")
     data = json.load(f)
 
 print("Processing data...")
-
-# defines featuers to look at
-FEATURES = ["gainVariation", "volume", "avgDailyIncrease", "overallIncrease"]
-CLASSIFYSPLIT = 0.20        # what percent of the data to use for classification determination
-DIRECTORY = "models/"       # folder destination for model
 
 # defines overall arrays for data
 gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData = [], [], [], []
@@ -68,7 +64,7 @@ for feature in FEATURES:
 frame = pd.DataFrame(frame)
 
 # splits data
-trainX, testX, trainY, testY = train_test_split(frame, classifications, test_size=0.2, random_state=10)    # random state for replicability
+trainX, testX, trainY, testY = train_test_split(frame, classifications, test_size=0.2, random_state=RANDOMSEED)    # random state for replicability
 
 # scales model
 scaler = StandardScaler()
@@ -84,9 +80,9 @@ predictedY = model.predict(testX)
 print(f"The accuracy of the model is {round(accuracy_score(testY, predictedY), 4)}")
 
 # saves models
-with open(f"{DIRECTORY}model.pkl", "wb") as f:
+with open(f"{MODELPATH}model.pkl", "wb") as f:
     pickle.dump(model, f)
-with open(f"{DIRECTORY}scaler.pkl", "wb") as f:
+with open(f"{MODELPATH}scaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
 print("Models saved.")
