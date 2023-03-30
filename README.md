@@ -49,16 +49,6 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
 {
     "AAPL": {
         "0": {
-            "2021-01-14": {
-                "1. open": "130.8",
-                "2. high": "131.0",
-                "3. low": "128.76",
-                "4. close": "128.91",
-                "5. adjusted close": "127.026824184584",
-                "6. volume": "90221755",
-                "7. dividend amount": "0.0000",
-                "8. split coefficient": "1.0"
-            },
             "2021-01-13": {
                 "1. open": "128.76",
                 "2. high": "131.45",
@@ -68,19 +58,19 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
                 "6. volume": "88636831",
                 "7. dividend amount": "0.0000",
                 "8. split coefficient": "1.0"
+            },
+            "2021-01-14": {
+                "1. open": "130.8",
+                "2. high": "131.0",
+                "3. low": "128.76",
+                "4. close": "128.91",
+                "5. adjusted close": "127.026824184584",
+                "6. volume": "90221755",
+                "7. dividend amount": "0.0000",
+                "8. split coefficient": "1.0"
             }
         },
         "1": {
-            "2020-10-01": {
-                "1. open": "117.64",
-                "2. high": "117.72",
-                "3. low": "115.83",
-                "4. close": "116.79",
-                "5. adjusted close": "114.885449823244",
-                "6. volume": "116120440",
-                "7. dividend amount": "0.0000",
-                "8. split coefficient": "1.0"
-            },
             "2020-09-30": {
                 "1. open": "113.79",
                 "2. high": "117.26",
@@ -90,21 +80,21 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
                 "6. volume": "142675184",
                 "7. dividend amount": "0.0000",
                 "8. split coefficient": "1.0"
+            },
+            "2020-10-01": {
+                "1. open": "117.64",
+                "2. high": "117.72",
+                "3. low": "115.83",
+                "4. close": "116.79",
+                "5. adjusted close": "114.885449823244",
+                "6. volume": "116120440",
+                "7. dividend amount": "0.0000",
+                "8. split coefficient": "1.0"
             }
         }
     }
     "MSFT": {
         "0": {
-            "2018-01-17": {
-                "1. open": "89.08",
-                "2. high": "90.28",
-                "3. low": "88.75",
-                "4. close": "90.14",
-                "5. adjusted close": "84.6534873704148",
-                "6. volume": "24659472",
-                "7. dividend amount": "0.0000",
-                "8. split coefficient": "1.0"
-            },
             "2018-01-16": {
                 "1. open": "90.1",
                 "2. high": "90.79",
@@ -112,6 +102,16 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
                 "4. close": "88.35",
                 "5. adjusted close": "82.9724385309091",
                 "6. volume": "35945428",
+                "7. dividend amount": "0.0000",
+                "8. split coefficient": "1.0"
+            },
+            "2018-01-17": {
+                "1. open": "89.08",
+                "2. high": "90.28",
+                "3. low": "88.75",
+                "4. close": "90.14",
+                "5. adjusted close": "84.6534873704148",
+                "6. volume": "24659472",
                 "7. dividend amount": "0.0000",
                 "8. split coefficient": "1.0"
             }
