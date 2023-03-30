@@ -45,7 +45,7 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
 <details>
 <summary>View shortened data preview</summary>
 
-```
+```json
 {
     "AAPL": {
         "0": {
