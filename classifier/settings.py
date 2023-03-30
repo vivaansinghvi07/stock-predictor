@@ -5,12 +5,12 @@ APIKEY = ""     # THE PROGRAM WILL NOT WORK WITHOUT THIS
 TOPSYMBOLS = ["AAPL", "MSFT", "GOOGL", "GOOG", "TSLA", "NVDA", "JPM", "JNJ", "V", "WMT", "UNH", "PG", "MA", "HD", "DIS", "BAC", "PYPL", "ADBE", "VZ", "NFLX", "MRK", "CMCSA", "PEP", "KO", "TMO", "CRM", "ABBV", "PFE", "ABT", "ACN", "CSCO", "XOM", "CVX", "NKE", "BA", "IBM", "MDT", "MMM", "WFC"]
 
 # how many pieces of data per symbol
-DATAPERSYMBOL = 4
+DATAPERSYMBOL = 10
 
 # ranges for data collection
-STARTYEAR = 2017        # EARLIEST YEAR FOR DATA
+STARTYEAR = 2012        # EARLIEST YEAR FOR DATA
 ENDYEAR = 2022          # LATEST YEAR FOR DATA
-DATACOUNT = 20          # NUMBER OF DAYS IN DATA INTERVAL
+DATACOUNT = 40          # NUMBER OF DAYS IN DATA INTERVAL
 
 # random seed for replicability
 RANDOMSEED = 10
@@ -19,10 +19,10 @@ RANDOMSEED = 10
 FEATURES = ["gainVariation", "avgDailyIncrease", "overallIncrease", "nDayIncrease"]
 
 # what percent of the data to use for classification determination
-CLASSIFYSPLIT = 0.5        
+CLASSIFYSPLIT = 0.25        
 
 # how many days to use with the nDayIncresae
-NDAYS = 5
+NDAYS = 10
 
 # path to folder
 MODELPATH = "classifier/models/"        # folder destination for model and scaler
