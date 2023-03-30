@@ -117,7 +117,6 @@ This program obtains the data from the API. For each stock symbol in `TOPSYMBOLS
             }
         }
     }
-    // More data would be below. To download the whole thing, see the aforementioned "data.json" file.
 }
 ```
 </details>
