@@ -2,7 +2,7 @@ import pickle                                           # for storing the model
 import json                                             # for reading data
 import pandas as pd                                     # for creating dataframes
 import numpy as np                                      # for things like mean and std dev
-from sklearn.svm import SVC                             # model used to train
+from sklearn.ensemble import RandomForestClassifier     # model used to train
 from sklearn.model_selection import train_test_split    # to split data
 from sklearn.preprocessing import StandardScaler        # to scale data
 from sklearn.metrics import accuracy_score              # calculate accuracy
@@ -16,7 +16,7 @@ with open(f"{DATAPATH}data.json", "r") as f:
 print("Processing data...")
 
 # defines overall arrays for data
-gainVariationData, volumeData, avgDailyIncreaseData, overallIncreaseData, nDayIncreaseData = [], [], [], [], []
+gainVariationData, avgDailyIncreaseData, overallIncreaseData, nDayIncreaseData = [], [], [], []
 classifications = []
 
 # calculates the percent change of a stock
@@ -29,32 +29,27 @@ for stockSymbol, symbolData in data.items():        # goes through each symbol
 
         # stores values
         splitIndex = int((1 - CLASSIFYSPLIT) * len(numberData.values()))
-        values = list(numberData.values())[::-1]    # reversed because old days are last 
+        values = list(numberData.values())
         valuesTraining = values[:splitIndex:]
         valuesClassifying = values[splitIndex::]
         
         # fills array with changes
         gains = []
-        volumes = []
         for dayData in valuesTraining:
             gains.append(calcChange(open=dayData["1. open"], close=dayData["4. close"]))
-            volumes.append(int(dayData["6. volume"]))
-
-        # gets average volume
-        volumeData.append(np.mean(volumes))
 
         # gets variation in gains
         gainVariationData.append(np.std(gains))
         avgDailyIncreaseData.append(np.mean(gains))
 
         # populate nDayIncreaseData
-        nDayIncreaseData.append(calcChange(open=valuesTraining[-NDAYS]["1. open"], close=valuesTraining[-1]["4. close"]))
+        nDayIncreaseData.append(calcChange(open=valuesTraining[-NDAYS]["4. close"], close=valuesTraining[-1]["4. close"]))
 
         # gets overall gain
-        overallIncreaseData.append(calcChange(open=valuesTraining[0]["1. open"], close=valuesTraining[-1]["4. close"]))
+        overallIncreaseData.append(calcChange(open=valuesTraining[0]["4. close"], close=valuesTraining[-1]["4. close"]))
 
         # determines if it was worth it
-        classifications.append(1 if calcChange(open=valuesClassifying[0]["1. open"], close=valuesClassifying[-1]["4. close"]) > 1 else 0)
+        classifications.append(1 if float(valuesClassifying[0]["4. close"]) < float(valuesClassifying[-1]["4. close"]) else 0)
 
 print("Training model...")
 
@@ -75,7 +70,7 @@ trainX = scaler.fit_transform(trainX)
 testX = scaler.transform(testX)
 
 # creates model
-model = SVC(probability=True)
+model = RandomForestClassifier(random_state=RANDOMSEED**2+1)    # i tried to change my random state to get the most accuracy
 model.fit(trainX, trainY)
 
 # tests accuracy
