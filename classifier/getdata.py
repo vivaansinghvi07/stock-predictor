@@ -80,14 +80,17 @@ for symbol in TOPSYMBOLS:   # gets 2 per symbol
 
         # gets 20 trading days before the date
         count = 0
-        while count < DATACOUNT:
-            # checks if day is available
-            try:
-                slicedData[str(day)] = fullStockData[str(day)]
-                day -= timedelta(days = 1)
-                count += 1
-            except:
-                day -= timedelta(days = 1)
+        try:
+            while count < DATACOUNT:
+                # checks if day is available
+                try:
+                    slicedData[str(day)] = fullStockData[str(day)]
+                    day += timedelta(days = 1)
+                    count += 1
+                except:
+                    day += timedelta(days = 1)
+        except OverflowError:   # detects overflow error for undetectable dates
+            continue
 
         # adds to main data
         data[symbol][countPerSymbol] = slicedData
