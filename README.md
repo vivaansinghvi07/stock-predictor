@@ -26,7 +26,7 @@ You can see the specific values which were used to generate the model in `settin
 - `DATACOUNT`: This determines how big your trading day-intervals are. Therefore, now, it obtains 20 consecutive trading days.
 - `RANDOMSEED`: This stores the random seed used for the sake of replicability.
 - `CLASSIFYSPLIT`: This represents the proportion of the interval which will be used to determine if buying a stock was 'worth it' (more on this later).
-- `MODELPATH`, `DATAPATH`, AND `IPYNBMODELPATH`: These represent paths to each file needed. If you run into file-not-found errors, tweak these until you reach the right files.
+- `MODELPATH`, `DATAPATH`, and `IPYNBMODELPATH`: These represent paths to each file needed. If you run into file-not-found errors, tweak these until you reach the right files.
 - `NDAYS`: Stores the number of days right before breakpoint to analyze.
 
 ## Features Included:
@@ -144,7 +144,7 @@ Everything is in the `use.ipynb` file!
 
 ## How It Works
 
-This model uses `prophet` to forecast the state of a stock.
+This model uses `Prophet` to forecast the state of a stock.
 
 ### use.ipynb
 
